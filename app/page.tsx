@@ -1,10 +1,18 @@
-'use client'
+"use client";
 import Image from "next/image";
-import  TextArea  from "../components/Inputs/TextArea";
+import "regenerator-runtime/runtime";
 import { ChangeEvent, useState } from "react";
+import { IoMdVolumeHigh } from "react-icons/io";
+import TextArea from "@/components/Inputs/TextArea";
+import SpeechRecognitionComponent from "@/components/SpeechRecognition/SpeechRecognition";
 
 export default function Home() {
-  const [sourceText, setSourceText] = useState<string>();
+  const [sourceText, setSourceText] = useState<string>("");
+
+  const handleAudioPlayback = (text: string) => {
+    const utterance = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(utterance);
+  };
 
   return (
     <>
@@ -27,7 +35,6 @@ export default function Home() {
                 <div className="grid gap-4 md:grid-cols-2 grid-cols-1">
                   {/* Div that contains the text-area */}
                   <div className="relative z-10 flex flex-col space-x-3 border rounded-lg shadow-lg bg-neutral-900 border-neutral-700 shadow-gray-900/20">
-                    
                     {/* Source Text Area */}
                     <TextArea
                       id="source-language"
@@ -38,10 +45,19 @@ export default function Home() {
                       placeholder="Source Language"
                     />
 
+                    {/* Icons */}
                     <div className="flex flex-row justify-between w-full">
-                        <span className="cursor-pointer flex space-x-2 flex-row">
-                          
-                        </span>
+                      <span className="cursor-pointer flex space-x-2 flex-row">
+                        <SpeechRecognitionComponent
+                          setSourceText={setSourceText}
+                        />
+                      <IoMdVolumeHigh
+                        size={22}
+                        onClick={() => handleAudioPlayback(sourceText)}
+                      />
+                      </span>
+
+                      {/* File Upload Component */}
                     </div>
                   </div>
                 </div>

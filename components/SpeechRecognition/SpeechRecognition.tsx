@@ -1,11 +1,19 @@
+"use client";
 import { useEffect } from "react";
 import SpeechRecognition, {
   useSpeechRecognition,
 } from "react-speech-recognition";
-import { IconMicrophone } from "@tabler/icons-react";
+// import { IconMicrophone } from "@tabler/icons-react";
 import toast, { Toaster } from "react-hot-toast";
+import { HiOutlineMicrophone } from "react-icons/hi";
 
-const SpeechRecognitionComponent = ({ setSourceText }) => {
+interface SpeechRecognitionComponentProps {
+  setSourceText: (text: string) => void;
+}
+
+const SpeechRecognitionComponent = ({
+  setSourceText,
+}: SpeechRecognitionComponentProps) => {
   const {
     transcript,
     listening,
@@ -34,7 +42,7 @@ const SpeechRecognitionComponent = ({ setSourceText }) => {
     <div>
       <>
         <Toaster />
-        <IconMicrophone
+        <HiOutlineMicrophone
           size={22}
           className="text-gray-400"
           onClick={handlingVoiceRecording}
