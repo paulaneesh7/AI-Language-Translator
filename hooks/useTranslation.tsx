@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 interface TranslationProps {
   sourceText: string;
@@ -21,6 +22,7 @@ const useTranslation = ({ sourceText, selectedLanguage }: TranslationProps) => {
       const data = await response.json();
       setTargetText(data.response);
     } catch (error) {
+      toast.error("Error while translating");
       console.error("Error while translating:", error);
     }
   };

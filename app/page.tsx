@@ -1,16 +1,22 @@
 "use client";
 import Image from "next/image";
 import "regenerator-runtime/runtime";
-import { ChangeEvent, useState } from "react";
+import { rtfToText } from "@/utils/rtfToText";
 import { IoMdVolumeHigh } from "react-icons/io";
+import useTranslation from "@/hooks/useTranslation";
 import TextArea from "@/components/Inputs/TextArea";
 
+import LinkPaste from "@/components/Inputs/LinkPaste";
 import FileUpload from "@/components/Inputs/FileUpload";
-import { rtfToText } from "@/utils/rtfToText";
+import { ChangeEvent, useState, useTransition } from "react";
 import SpeechRecognitionComponent from "@/components/SpeechRecognition/SpeechRecognition";
 
 export default function Home() {
   const [sourceText, setSourceText] = useState<string>("");
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
+  const [copied, setCopied] = useState<boolean>(false);
+  const [favourite, setFavourite] = useState<boolean>(false);
+  const targetText = useTranslation({ sourceText, selectedLanguage });
 
   const handleAudioPlayback = (text: string) => {
     const utterance = new SpeechSynthesisUtterance(text);
@@ -27,6 +33,17 @@ export default function Home() {
         setSourceText(text);
       };
       reader.readAsText(file);
+    }
+  };
+
+  const handleLinkPaste = async (e: ChangeEvent<HTMLInputElement>) => {
+    const link = e.target.value;
+    try {
+      const response = await fetch(link);
+      const data = await response.text();
+      setSourceText(data);
+    } catch (error) {
+      console.error("Error fetching link content:", error);
     }
   };
 
@@ -49,7 +66,7 @@ export default function Home() {
 
               <div className="mt-7 sm:mt-12 mx-auto max-w-3xl relative">
                 <div className="grid gap-4 md:grid-cols-2 grid-cols-1">
-                  {/* Div that contains the text-area */}
+                  {/* Div that contains the source text-area */}
                   <div className="relative z-10 flex flex-col space-x-3 border rounded-lg shadow-lg bg-neutral-900 border-neutral-700 shadow-gray-900/20">
                     {/* Source Text Area */}
                     <TextArea
@@ -73,6 +90,42 @@ export default function Home() {
                         />
                         {/* File Upload Component */}
                         <FileUpload handleFileUpload={handleFileUpload} />
+                        <LinkPaste handleLinkPaste={handleLinkPaste} />
+                      </span>
+
+                      <span className="text-sm pr-4">
+                        {sourceText.length} / 2000
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Div that contains the target text-area */}
+                  <div className="relative z-10 flex flex-col space-x-3 border rounded-lg shadow-lg bg-neutral-900 border-neutral-700 shadow-gray-900/20">
+                    {/* Source Text Area */}
+                    <TextArea
+                      id="target-language"
+                      value={targetText}
+                      onChange={(e) => {}}
+                      placeholder="Target Language"
+                    />
+
+                    {/* Icons */}
+                    <div className="flex flex-row justify-between w-full">
+                      <span className="cursor-pointer flex space-x-2 flex-row">
+                        <SpeechRecognitionComponent
+                          setSourceText={setSourceText}
+                        />
+                        <IoMdVolumeHigh
+                          size={22}
+                          onClick={() => handleAudioPlayback(sourceText)}
+                        />
+                        {/* File Upload Component */}
+                        <FileUpload handleFileUpload={handleFileUpload} />
+                        <LinkPaste handleLinkPaste={handleLinkPaste} />
+                      </span>
+
+                      <span className="text-sm pr-4">
+                        {sourceText.length} / 2000
                       </span>
                     </div>
                   </div>
