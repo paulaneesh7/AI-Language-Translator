@@ -5,6 +5,8 @@ import { ChangeEvent, useState } from "react";
 import { IoMdVolumeHigh } from "react-icons/io";
 import TextArea from "@/components/Inputs/TextArea";
 import SpeechRecognitionComponent from "@/components/SpeechRecognition/SpeechRecognition";
+import FileUpload from "@/components/Inputs/FileUpload";
+import { rtfToText } from "@/utils/rtfToText";
 
 export default function Home() {
   const [sourceText, setSourceText] = useState<string>("");
@@ -14,10 +16,23 @@ export default function Home() {
     window.speechSynthesis.speak(utterance);
   };
 
+  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const rtfContent = reader.result as string;
+        const text = rtfToText(rtfContent);
+        setSourceText(text);
+      };
+      reader.readAsText(file);
+    }
+  };
+
   return (
     <>
       {/* Div for the dotted-bg */}
-      <div className="h-[50rem] w-full dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
+      <div className="h-[50rem] w-full dark:bg-black bg-white  dark:bg-grid-small-white/[0.2] bg-grid-small-black/[0.2] relative flex items-center justify-center">
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 
         {/* This is the div which contains everything */}
@@ -51,13 +66,14 @@ export default function Home() {
                         <SpeechRecognitionComponent
                           setSourceText={setSourceText}
                         />
-                      <IoMdVolumeHigh
-                        size={22}
-                        onClick={() => handleAudioPlayback(sourceText)}
-                      />
+                        <IoMdVolumeHigh
+                          size={22}
+                          onClick={() => handleAudioPlayback(sourceText)}
+                        />
                       </span>
 
                       {/* File Upload Component */}
+                      <FileUpload handleFileUpload={handleFileUpload} />
                     </div>
                   </div>
                 </div>
