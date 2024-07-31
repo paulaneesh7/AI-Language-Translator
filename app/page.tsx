@@ -81,11 +81,11 @@ export default function Home() {
   return (
     <div>
       {/* Div for the dotted-bg */}
-      <div className="h-[50rem] w-full dark:bg-black bg-black  dark:bg-grid-small-white/[0.2] bg-grid-small-white/[0.2] relative flex items-center justify-center">
+      <div className="h-[52rem] w-full dark:bg-black bg-black  dark:bg-grid-small-white/[0.2] bg-grid-small-white/[0.2] relative flex items-center justify-center">
         <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-black [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
 
         {/* This is the div which contains everything */}
-        <div className="relative overflow-hidden h-screen">
+        <div className="relative overflow-hidden h-auto">
           <div className="max-w-[85rem] mx-auto px-4 sm:px-6 py-10 sm:py-24">
             <div className="text-center">
               <h1 className="text-4xl sm:text-6xl font-bold ">
@@ -94,8 +94,14 @@ export default function Home() {
               <p className="mt-3 text-neutral-400">
                 PolyConverse : Bridging Voices, Connecting worlds
               </p>
+              <a
+                href="https://github.com/paulaneesh7/AI-Language-Translator"
+                className=" text-neutral-400 text-left"
+              >
+                Give it a ⭐ on GiHub
+              </a>
 
-              <div className="mt-7 sm:mt-12 mx-auto max-w-3xl relative">
+              <div className="mt-7 sm:mt-8 mx-auto max-w-3xl relative">
                 <div className="grid gap-4 md:grid-cols-2 grid-cols-1">
                   {/* Div that contains the source text-area */}
                   <div className="relative z-10 p-3 flex flex-col space-x-3 border rounded-lg shadow-lg bg-neutral-900 border-neutral-700 shadow-gray-900/20">
