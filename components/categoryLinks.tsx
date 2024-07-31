@@ -20,11 +20,11 @@ const categories = [
     icon: <HiOutlineLightBulb size={20} />,
   },
   {
-    title: "Writing",
+    title: "Journalising",
     icon: <TbWriting size={20} />,
   },
   {
-    title: "Lifestyle",
+    title: "Communication",
     icon: <TbMoodSmileBeam size={20} />,
   },
   {
@@ -39,10 +39,10 @@ const CategoryLinks = () => {
       {categories.map((category) => (
         <div
           key={category.title}
-          className="m-1 py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 text-white"
+          className="m-1 py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 shadow-sm hover:bg-gray-800 disabled:opacity-50 disabled:pointer-events-none bg-neutral-900 text-white cursor-pointer"
         >
           {category.icon}
-          <p className="text-2xl">{category.title}</p>
+          <p className="text-xl">{category.title}</p>
         </div>
       ))}
     </div>
