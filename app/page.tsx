@@ -2,7 +2,9 @@
 import Image from "next/image";
 import "regenerator-runtime/runtime";
 import { rtfToText } from "@/utils/rtfToText";
+import { MdOutlineDone } from "react-icons/md";
 import { IoMdVolumeHigh } from "react-icons/io";
+import { IoCopyOutline } from "react-icons/io5";
 import useTranslation from "@/hooks/useTranslation";
 import TextArea from "@/components/Inputs/TextArea";
 
@@ -10,12 +12,27 @@ import LinkPaste from "@/components/Inputs/LinkPaste";
 import FileUpload from "@/components/Inputs/FileUpload";
 import { ChangeEvent, useState, useTransition } from "react";
 import SpeechRecognitionComponent from "@/components/SpeechRecognition/SpeechRecognition";
+import LanguageSelector from "@/components/Inputs/LanguageSelector";
+import toast from "react-hot-toast";
 
 export default function Home() {
   const [sourceText, setSourceText] = useState<string>("");
-  const [selectedLanguage, setSelectedLanguage] = useState<string>("en");
   const [copied, setCopied] = useState<boolean>(false);
   const [favourite, setFavourite] = useState<boolean>(false);
+  const [languages, setLanguages] = useState<string[]>([
+    "English",
+    "French",
+    "Spanish",
+    "German",
+    "Portuguese",
+    "Hindi",
+    "Chinese",
+    "Japanese",
+    "Korean",
+    "Turkish",
+    "Arabic",
+  ]);
+  const [selectedLanguage, setSelectedLanguage] = useState<string>("Spanish");
   const targetText = useTranslation({ sourceText, selectedLanguage });
 
   const handleAudioPlayback = (text: string) => {
@@ -45,6 +62,13 @@ export default function Home() {
     } catch (error) {
       console.error("Error fetching link content:", error);
     }
+  };
+
+  const handleCopyToClipboard = () => {
+    navigator.clipboard.writeText(targetText);
+    setCopied(true);
+    toast.success("Copied to clipboard");
+    setTimeout(() => setCopied(false), 3000);
   };
 
   return (
@@ -108,25 +132,28 @@ export default function Home() {
                       onChange={(e) => {}}
                       placeholder="Target Language"
                     />
-
-                    {/* Icons */}
-                    <div className="flex flex-row justify-between w-full">
-                      <span className="cursor-pointer flex space-x-2 flex-row">
-                        <SpeechRecognitionComponent
-                          setSourceText={setSourceText}
+                    <div className="flex justify-between w-full">
+                      <span className="cursor-pointer flex space-x-2 items-center">
+                        <LanguageSelector
+                          selectedLanguage={selectedLanguage}
+                          setSelectedLanguage={setSelectedLanguage}
+                          languages={languages}
                         />
                         <IoMdVolumeHigh
                           size={22}
-                          onClick={() => handleAudioPlayback(sourceText)}
+                          onClick={() => handleAudioPlayback(targetText)}
                         />
-                        {/* File Upload Component */}
-                        <FileUpload handleFileUpload={handleFileUpload} />
-                        <LinkPaste handleLinkPaste={handleLinkPaste} />
                       </span>
-
-                      <span className="text-sm pr-4">
-                        {sourceText.length} / 2000
-                      </span>
+                      <div className="flex items-center space-x-2 pr-4 cursor-pointer">
+                        {copied ? (
+                          <MdOutlineDone size={22} />
+                        ) : (
+                          <IoCopyOutline
+                            size={22}
+                            onClick={handleCopyToClipboard}
+                          />
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
