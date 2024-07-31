@@ -6,7 +6,7 @@ import Script from "next/script";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "PolyLingua",
+  title: "PolyConverse",
   description: "AI Based Language Translator",
 };
 
