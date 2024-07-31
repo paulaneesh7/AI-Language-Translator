@@ -96,9 +96,10 @@ export default function Home() {
               </p>
               <a
                 href="https://github.com/paulaneesh7/AI-Language-Translator"
+                target="_blank"
                 className=" text-neutral-400 text-left"
               >
-                Give it a ⭐ on GiHub
+                Give it a ⭐ on GitHub
               </a>
 
               <div className="mt-7 sm:mt-8 mx-auto max-w-3xl relative">
