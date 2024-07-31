@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## PolyConverse
 
-## Getting Started
+PolyConverse is a cutting-edge AI-based language translation application designed to bridge the gap between different languages, fostering seamless communication across the globe. Whether you're traveling, conducting business, or simply exploring new cultures, PolyConverse empowers you to effortlessly translate text from one language to another, based on your choice, ensuring you never miss out on meaningful interactions.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tech Stack 🚀
+- Nextjs (Frontend & Backend)
+- Tailwind CSS (Styling)
+- Google Gemini API (Translation)
+- Vercel (Deployment)
+
+## Features
+- Translate text from one language to another.
+- Supports major languages **(with more incoming in future updates)**.
+- Voice input for easy translation.
+- Text to Speech translation for both the source and target texts.
+- File upload for translation. **(soon)**
+- Copy translated text to clipboard.
+- More features soon...
+
+## Getting Started 🛠️
+
+First, clone the repository:
+
+```
+git clone https://github.com/paulaneesh7/AI-Language-Translator.git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Next, install the dependencies:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Before running the development server, you need to create a `.env` file in the root directory and add the following environment variables:
 
-## Learn More
+```
+GOOGLE_GEMINI_API_KEY=YOUR_GOOGLE_GEMINI_API_KEY
+```
 
-To learn more about Next.js, take a look at the following resources:
+Finally, run the development server:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+npm run dev
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Endpoint
+We only have one endpoint `/api/translate` which is a POST request that accepts the sourceText and targetLanguage as the request body and returns the translated text.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Contribution 🤝
+PolyConverse is an open-source project and we welcome contributions from the community. If you have any feature requests, bug reports, or suggestions, feel free to raise an issue or submit a pull request.
